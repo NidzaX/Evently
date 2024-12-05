@@ -16,6 +16,7 @@ public static class CreateEvent
                 Id = Guid.NewGuid(),
                 Title = request.Title,
                 Description = request.Description,
+                Location = request.Location,
                 StartsAtUts = request.StartsAtUts,
                 EndsAtUts = request.EndsAtUts,
                 Status = EventStatus.Draft
