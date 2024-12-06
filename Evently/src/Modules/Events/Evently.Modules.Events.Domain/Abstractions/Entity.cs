@@ -10,7 +10,7 @@ public abstract class Entity
 
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.ToList();
 
-    protected void ClearDomainEvents()
+    public void ClearDomainEvents()
     {
         _domainEvents.Clear();
     }
@@ -19,5 +19,4 @@ public abstract class Entity
     {
         _domainEvents.Add(domainEvent);
     }
-
 }
