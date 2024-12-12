@@ -2,9 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Evently.Common.Application\Evently.Common.Application.csproj" />
-    <ProjectReference Include="..\..\Events\Evently.Modules.Events.Application\Evently.Modules.Events.Application.csproj" />
     <ProjectReference Include="..\..\Events\Evently.Modules.Events.PublicApi\Evently.Modules.Events.PublicApi.csproj" />
-    <ProjectReference Include="..\..\Users\Evently.Modules.Users.Application\Evently.Modules.Users.Application.csproj" />
     <ProjectReference Include="..\..\Users\Evently.Modules.Users.PublicApi\Evently.Modules.Users.PublicApi.csproj" />
     <ProjectReference Include="..\Evently.Modules.Ticketing.Domain\Evently.Modules.Ticketing.Domain.csproj" />
   </ItemGroup>
