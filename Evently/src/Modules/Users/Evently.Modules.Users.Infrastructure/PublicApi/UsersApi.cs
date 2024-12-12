@@ -2,13 +2,12 @@
 using Evently.Modules.Users.Application.Users.GetUser;
 using Evently.Modules.Users.PublicApi;
 using MediatR;
-using UserResponse = Evently.Modules.Users.PublicApi.UserResponse;
 
 namespace Evently.Modules.Users.Infrastructure.PublicApi;
 
 internal sealed class UsersApi(ISender sender) : IUsersApi
 {
-    public async Task<UserResponse?> GetAsync(Guid userId, CancellationToken cancellationToken = default)
+    public async Task<Modules.Users.PublicApi.UserResponse?> GetAsync(Guid userId, CancellationToken cancellationToken = default)
     {
         Result<Application.Users.GetUser.UserResponse> result =
             await sender.Send(new GetUserQuery(userId), cancellationToken);
@@ -18,7 +17,7 @@ internal sealed class UsersApi(ISender sender) : IUsersApi
             return null;
         }
 
-        return new UserResponse(
+        return new Modules.Users.PublicApi.UserResponse(
             result.Value.Id,
             result.Value.Email,
             result.Value.FirstName,

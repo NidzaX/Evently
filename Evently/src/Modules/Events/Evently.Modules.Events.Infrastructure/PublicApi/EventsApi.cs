@@ -2,13 +2,12 @@
 using Evently.Modules.Events.Application.TicketTypes.GetTicketType;
 using Evently.Modules.Events.PublicApi;
 using MediatR;
-using TicketTypeResponse = Evently.Modules.Events.PublicApi.TicketTypeResponse;
 
 namespace Evently.Modules.Events.Infrastructure.PublicApi;
 
 internal sealed class EventsApi(ISender sender) : IEventsApi
 {
-    public async Task<TicketTypeResponse?> GetTicketTypeAsync(
+    public async Task<Modules.Events.PublicApi.TicketTypeResponse?> GetTicketTypeAsync(
         Guid ticketTypeId,
         CancellationToken cancellationToken = default)
     {
@@ -20,7 +19,7 @@ internal sealed class EventsApi(ISender sender) : IEventsApi
             return null;
         }
 
-        return new TicketTypeResponse(
+        return new Modules.Events.PublicApi.TicketTypeResponse(
             result.Value.Id,
             result.Value.EventId,
             result.Value.Name,
