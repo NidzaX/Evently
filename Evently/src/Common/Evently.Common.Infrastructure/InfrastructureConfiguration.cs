@@ -1,4 +1,5 @@
-﻿using Evently.Common.Application.Caching;
+﻿using Dapper;
+using Evently.Common.Application.Caching;
 using Evently.Common.Application.Clock;
 using Evently.Common.Application.Data;
 using Evently.Common.Application.EventBus;
@@ -28,14 +29,18 @@ public static class InfrastructureConfiguration
 
         services.AddAuthorizationInternal();
 
+        services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
+
+        services.TryAddSingleton<IEventBus, EventBus.EventBus>();
+
+        services.TryAddSingleton<PublishDomainEventsInterceptor>();
+
         NpgsqlDataSource npgsqlDataSource = new NpgsqlDataSourceBuilder(databaseConnectionString).Build();
         services.TryAddSingleton(npgsqlDataSource);
 
         services.TryAddScoped<IDbConnectionFactory, DbConnectionFactory>();
 
-        services.TryAddSingleton<PublishDomainEventsInterceptor>();
-
-        services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
+        SqlMapper.AddTypeHandler(new GenericArrayHandler<string>());
 
         try
         {
@@ -52,13 +57,11 @@ public static class InfrastructureConfiguration
 
         services.TryAddSingleton<ICacheService, CacheService>();
 
-        services.TryAddSingleton<IEventBus, EventBus.EventBus>();
-
         services.AddMassTransit(configure =>
         {
-            foreach (Action<IRegistrationConfigurator> configureConsumer in moduleConfigureConsumers)
+            foreach (Action<IRegistrationConfigurator> configureConsumers in moduleConfigureConsumers)
             {
-                configureConsumer(configure);
+                configureConsumers(configure);
             }
 
             configure.SetKebabCaseEndpointNameFormatter();
