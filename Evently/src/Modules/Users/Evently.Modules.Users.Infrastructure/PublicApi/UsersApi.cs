@@ -1,6 +1,5 @@
 ﻿using Evently.Common.Domain;
 using Evently.Modules.Users.Application.Users.GetUser;
-using Evently.Modules.Users.PublicApi;
 using MediatR;
 
 namespace Evently.Modules.Users.Infrastructure.PublicApi;
